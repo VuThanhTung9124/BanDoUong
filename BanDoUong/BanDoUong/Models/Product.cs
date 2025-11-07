@@ -8,6 +8,7 @@ namespace BanDoUong.Models
 
     public partial class Product
     {
+       
         [Key]
         public int product_id { get; set; }
 
@@ -28,5 +29,11 @@ namespace BanDoUong.Models
         public string category { get; set; }
 
         public bool status { get; set; }
+
+
+      
+
+
+       
     }
 }

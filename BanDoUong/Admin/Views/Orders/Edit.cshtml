@@ -1,0 +1,73 @@
+﻿@model Admin.Models.Order
+
+@{
+    ViewBag.Title = "Chỉnh sửa đơn hàng";
+}
+
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100 min-h-screen flex">
+
+    <!-- Main Content -->
+    <main class="flex-1 ml-64 p-6 overflow-auto">
+        <div class="max-w-3xl mx-auto bg-white p-6 rounded-lg shadow">
+            <h2 class="text-2xl font-bold mb-6 text-gray-800">Chỉnh sửa đơn hàng</h2>
+
+            @using (Html.BeginForm("Edit", "Orders", FormMethod.Post))
+            {
+                @Html.AntiForgeryToken()
+                @Html.HiddenFor(m => m.OrderId) @* Bắt buộc để EF biết cập nhật bản ghi *@
+
+                <div class="space-y-5">
+
+                    <div>
+                        @Html.LabelFor(m => m.FullName, "Họ và tên", new { @class = "block font-semibold mb-1" })
+                        @Html.EditorFor(m => m.FullName, new { htmlAttributes = new { @class = "w-full border rounded p-2 focus:ring-2 focus:ring-blue-500" } })
+                        @Html.ValidationMessageFor(m => m.FullName, "", new { @class = "text-red-500 text-sm" })
+                    </div>
+
+                    <div>
+                        @Html.LabelFor(m => m.Phone, "Số điện thoại", new { @class = "block font-semibold mb-1" })
+                        @Html.EditorFor(m => m.Phone, new { htmlAttributes = new { @class = "w-full border rounded p-2 focus:ring-2 focus:ring-blue-500" } })
+                        @Html.ValidationMessageFor(m => m.Phone, "", new { @class = "text-red-500 text-sm" })
+                    </div>
+
+                    <div>
+                        @Html.LabelFor(m => m.Address, "Địa chỉ", new { @class = "block font-semibold mb-1" })
+                        @Html.EditorFor(m => m.Address, new { htmlAttributes = new { @class = "w-full border rounded p-2 focus:ring-2 focus:ring-blue-500" } })
+                        @Html.ValidationMessageFor(m => m.Address, "", new { @class = "text-red-500 text-sm" })
+                    </div>
+
+                    <div>
+                        @Html.LabelFor(m => m.TotalAmount, "Tổng tiền (VNĐ)", new { @class = "block font-semibold mb-1" })
+                        @Html.EditorFor(m => m.TotalAmount, new { htmlAttributes = new { @class = "w-full border rounded p-2 focus:ring-2 focus:ring-blue-500" } })
+                        @Html.ValidationMessageFor(m => m.TotalAmount, "", new { @class = "text-red-500 text-sm" })
+                    </div>
+
+                    <div>
+                        @Html.LabelFor(m => m.Description, "Ghi chú", new { @class = "block font-semibold mb-1" })
+                        @Html.TextAreaFor(m => m.Description, new { @class = "w-full border rounded p-2 focus:ring-2 focus:ring-blue-500", rows = "4" })
+                        @Html.ValidationMessageFor(m => m.Description, "", new { @class = "text-red-500 text-sm" })
+                    </div>
+
+                    <div class="flex justify-end space-x-3 pt-4">
+                        <a href="@Url.Action("Index", "Orders")" class="bg-gray-500 text-white px-4 py-2 rounded hover:bg-gray-600">Quay lại</a>
+                        <input type="submit" value="Lưu thay đổi" class="bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700 cursor-pointer" />
+                    </div>
+
+                </div>
+            }
+        </div>
+    </main>
+
+    @section Scripts {
+        @Scripts.Render("~/bundles/jqueryval")
+    }
+</body>
+</html>

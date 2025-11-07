@@ -1,0 +1,261 @@
+﻿@*@model IEnumerable<BanDoUong.Models.Order>*@
+@model BanDoUong.Models.Order
+
+@using Newtonsoft.Json
+
+@{
+    ViewBag.Title = "Index";
+
+}
+
+
+<!doctype html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Phiếu Hóa Đơn Đặt Hàng</title>
+    <style>
+        body {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+            background: #f5f5f5;
+            min-height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        html {
+            height: 100%;
+        }
+
+        .invoice-wrapper {
+            max-width: 700px;
+            width: 100%;
+            background: #ffffff;
+            border: 1px solid #ddd;
+            padding: 40px;
+        }
+
+        .invoice-header {
+            text-align: center;
+            margin-bottom: 30px;
+            padding-bottom: 20px;
+            border-bottom: 2px solid #333;
+        }
+
+            .invoice-header h1 {
+                margin: 0 0 10px 0;
+                font-size: 24px;
+                color: #333;
+            }
+
+            .invoice-header p {
+                margin: 0;
+                font-size: 16px;
+                color: #666;
+            }
+
+        .section {
+            margin-bottom: 30px;
+        }
+
+        .section-title {
+            font-size: 18px;
+            font-weight: bold;
+            color: #333;
+            margin-bottom: 15px;
+            padding-bottom: 8px;
+            border-bottom: 1px solid #ddd;
+        }
+
+        .info-row {
+            display: flex;
+            padding: 10px 0;
+            border-bottom: 1px solid #f0f0f0;
+        }
+
+        .info-label {
+            font-weight: bold;
+            color: #333;
+            min-width: 140px;
+        }
+
+        .info-value {
+            color: #666;
+            flex: 1;
+        }
+
+        .order-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 12px 0;
+            border-bottom: 1px solid #f0f0f0;
+        }
+
+        .item-details {
+            flex: 1;
+        }
+
+        .item-name {
+            font-weight: bold;
+            color: #333;
+            margin-bottom: 4px;
+        }
+
+        .item-quantity {
+            color: #666;
+            font-size: 14px;
+        }
+
+        .item-price {
+            font-weight: bold;
+            color: #333;
+            margin-left: 20px;
+        }
+
+        .total-section {
+            margin-top: 20px;
+            padding-top: 20px;
+            border-top: 2px solid #333;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .total-label {
+            font-size: 20px;
+            font-weight: bold;
+            color: #333;
+        }
+
+        .total-amount {
+            font-size: 24px;
+            font-weight: bold;
+            color: #333;
+        }
+
+        .thank-you {
+            text-align: center;
+            margin-top: 30px;
+            padding-top: 20px;
+            border-top: 1px solid #ddd;
+        }
+
+            .thank-you p {
+                margin: 0;
+                font-size: 16px;
+                color: #666;
+            }
+
+
+
+        .info-row {
+            flex-direction: column;
+        }
+
+        .info-label {
+            margin-bottom: 5px;
+        }
+
+        .order-item {
+            flex-direction: column;
+        }
+
+        .item-price {
+            margin-left: 0;
+            margin-top: 8px;
+        }
+
+        .total-section {
+            flex-direction: column;
+            text-align: center;
+        }
+
+        .total-amount {
+            margin-top: 10px;
+        }
+        }
+    </style>
+
+    <script src="/_sdk/data_sdk.js" type="text/javascript"></script>
+    <script src="/_sdk/element_sdk.js" type="text/javascript"></script>
+    <script src="https://cdn.tailwindcss.com" type="text/javascript"></script>
+</head>
+<body>
+    <div class="invoice-wrapper">
+        @*@foreach (var item in Model)
+        {*@
+
+
+            <!-- Header --><div class="invoice-header">
+                <h1>HÓA ĐƠN ĐẶT HÀNG</h1>
+                <p>Đặt hàng thành công</p>
+            </div><!-- Customer Information --><div class="section">
+                <div class="section-title">
+                    Thông tin khách hàng
+                </div>
+                <div class="info-row">
+                    <div class="info-label">
+                        Họ và tên:
+                    </div>
+                    <div class="info-value">
+                        @Model.FullName
+                    </div>
+                </div>
+                <div class="info-row">
+                    <div class="info-label">
+                        Số điện thoại:
+                    </div>
+                    <div class="info-value">
+                        @Model.Phone
+                    </div>
+                </div>
+                <div class="info-row">
+                    <div class="info-label">
+                        Địa chỉ:
+                    </div>
+                    <div class="info-value">
+                        @Model.Address
+                    </div>
+                </div>
+            </div><!-- Order Details -->
+
+
+
+            <div class="section">
+                <div class="section-title">
+                    Chi tiết đơn hàng
+                </div>
+               
+
+                <div class="order-item">
+                    @Html.Raw(Model.Description.Replace("\n", "<br>"))
+
+                </div>
+
+                
+            </div>
+
+
+
+
+            <!-- Total --><div class="total-section">
+                <div class="total-label">
+                    Tổng tiền:
+                </div>
+                <div class="total-amount">
+                    @Model.TotalAmount
+                </div>
+            </div><!-- Thank You --><div class="thank-you">
+                <p>Cảm ơn quý khách đã đặt hàng!</p>
+            </div>
+        @*}*@
+    </div>
+    <script>(function () { function c() { var b = a.contentDocument || a.contentWindow.document; if (b) { var d = b.createElement('script'); d.innerHTML = "window.__CF$cv$params={r:'99a9a41927ed04f4',t:'MTc2MjQ4NTA2Mi4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);"; b.getElementsByTagName('head')[0].appendChild(d) } } if (document.body) { var a = document.createElement('iframe'); a.height = 1; a.width = 1; a.style.position = 'absolute'; a.style.top = 0; a.style.left = 0; a.style.border = 'none'; a.style.visibility = 'hidden'; document.body.appendChild(a); if ('loading' !== document.readyState) c(); else if (window.addEventListener) document.addEventListener('DOMContentLoaded', c); else { var e = document.onreadystatechange || function () { }; document.onreadystatechange = function (b) { e(b); 'loading' !== document.readyState && (document.onreadystatechange = e, c()) } } } })();</script>
+</body>
+</html>

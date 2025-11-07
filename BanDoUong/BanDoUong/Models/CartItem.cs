@@ -7,6 +7,8 @@ namespace BanDoUong.Models
 {
 	public class CartItem
 	{
+      
+
         public int ProductId { get; set; }
         public string Name { get; set; }
         public string Thumbnail { get; set; }
@@ -14,7 +16,10 @@ namespace BanDoUong.Models
         public int Quantity { get; set; }
 
 
+      
+
     }
 
+    
 
 }

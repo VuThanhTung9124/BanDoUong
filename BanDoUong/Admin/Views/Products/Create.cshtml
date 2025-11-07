@@ -1,103 +1,100 @@
 ﻿@model Admin.Models.Product
 
 @{
-    ViewBag.Title = "Create";
+    ViewBag.Title = "Thêm sản phẩm";
 }
 
-<h2>Create</h2>
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100 min-h-screen flex">
 
-
-@using (Html.BeginForm("Create", "Products", FormMethod.Post, new { enctype = "multipart/form-data" })) 
-{
-    @Html.AntiForgeryToken()
     
-    <div class="form-horizontal">
-        <h4>Product</h4>
-        <hr />
-        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-        <div class="form-group">
-            @Html.LabelFor(model => model.name, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.name, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.name, "", new { @class = "text-danger" })
-            </div>
-        </div>
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.description, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.description, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.description, "", new { @class = "text-danger" })
-            </div>
-        </div>
+    <!-- Main Content -->
+    <main class="flex-1 ml-64 p-6 overflow-auto">
+        <div class="max-w-3xl mx-auto bg-white p-6 rounded-lg shadow">
+            <h2 class="text-2xl font-bold mb-6 text-gray-800">Thêm sản phẩm mới</h2>
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.price, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.price, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.price, "", new { @class = "text-danger" })
-            </div>
-        </div>
+            @using (Html.BeginForm("Create", "Products", FormMethod.Post, new { enctype = "multipart/form-data" }))
+            {
+                @Html.AntiForgeryToken()
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.old_price, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.old_price, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.old_price, "", new { @class = "text-danger" })
-            </div>
-        </div>
+                <div class="space-y-5">
+                    <div>
+                        @Html.LabelFor(m => m.name, "Tên sản phẩm", new { @class = "block font-semibold mb-1" })
+                        @Html.TextBoxFor(m => m.name, new { @class = "w-full border rounded p-2 focus:ring-2 focus:ring-blue-500" })
+                        @Html.ValidationMessageFor(m => m.name, "", new { @class = "text-red-500 text-sm" })
+                    </div>
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.thumbnail, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.thumbnail, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.thumbnail, "", new { @class = "text-danger" })
+                    <div>
+                        @Html.LabelFor(m => m.description, "Mô tả", new { @class = "block font-semibold mb-1" })
+                        @Html.TextAreaFor(m => m.description, new { @class = "w-full border rounded p-2 focus:ring-2 focus:ring-blue-500", rows = "4" })
+                        @Html.ValidationMessageFor(m => m.description, "", new { @class = "text-red-500 text-sm" })
+                    </div>
 
-                <img id="output" class="img-rounded" alt="Ảnh" width="180" height="200"
-                     src="~/_Image_Water/no-image-news.png" />
+                    <div class="grid grid-cols-2 gap-4">
+                        <div>
+                            @Html.LabelFor(m => m.price, "Giá (VNĐ)", new { @class = "block font-semibold mb-1" })
+                            @Html.TextBoxFor(m => m.price, new { @class = "w-full border rounded p-2 focus:ring-2 focus:ring-blue-500" })
+                            @Html.ValidationMessageFor(m => m.price, "", new { @class = "text-red-500 text-sm" })
+                        </div>
 
-                <p><label for="ufile" style="cursor: pointer;">Chọn file ảnh</label></p>
-                <input name="ImageFile" id="ufile" type="file" style="display: none;" onchange="loadFile(event)" />
-            </div>
-        </div>
+                        <div>
+                            @Html.LabelFor(m => m.old_price, "Giá cũ", new { @class = "block font-semibold mb-1" })
+                            @Html.TextBoxFor(m => m.old_price, new { @class = "w-full border rounded p-2 focus:ring-2 focus:ring-blue-500" })
+                            @Html.ValidationMessageFor(m => m.old_price, "", new { @class = "text-red-500 text-sm" })
+                        </div>
+                    </div>
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.category, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.category, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.category, "", new { @class = "text-danger" })
-            </div>
-        </div>
+                    <div>
+                        @Html.LabelFor(m => m.thumbnail, "Ảnh sản phẩm", new { @class = "block font-semibold mb-2" })
+                        <div class="flex items-center space-x-6">
+                            <img id="output" src="~/Image_Water/no-image-news.png" class="w-32 h-32 object-cover border rounded" alt="Preview" />
+                            <div>
+                                <label for="ufile" class="cursor-pointer bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700">
+                                    Chọn ảnh
+                                </label>
+                                <input name="ImageFile" id="ufile" type="file" class="hidden" onchange="loadFile(event)" />
+                                @Html.ValidationMessageFor(m => m.thumbnail, "", new { @class = "text-red-500 text-sm block mt-2" })
+                            </div>
+                        </div>
+                    </div>
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.status, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                <div class="checkbox">
-                    @Html.EditorFor(model => model.status)
-                    @Html.ValidationMessageFor(model => model.status, "", new { @class = "text-danger" })
+                    <div>
+                        @Html.LabelFor(m => m.category, "Danh mục", new { @class = "block font-semibold mb-1" })
+                        @Html.TextBoxFor(m => m.category, new { @class = "w-full border rounded p-2 focus:ring-2 focus:ring-blue-500" })
+                        @Html.ValidationMessageFor(m => m.category, "", new { @class = "text-red-500 text-sm" })
+                    </div>
+
+                    <div class="flex items-center space-x-2">
+                        @Html.CheckBoxFor(m => m.status, new { @class = "w-4 h-4 text-blue-600" })
+                        @Html.LabelFor(m => m.status, "Còn hàng", new { @class = "font-semibold" })
+                    </div>
+
+                    <div class="flex justify-end space-x-3 pt-4">
+                        <a href="@Url.Action("Index", "Products")" class="bg-gray-500 text-white px-4 py-2 rounded hover:bg-gray-600">Quay lại</a>
+                        <input type="submit" value="Thêm sản phẩm" class="bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700 cursor-pointer" />
+                    </div>
                 </div>
-            </div>
+            }
         </div>
+    </main>
 
-        <div class="form-group">
-            <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Create" class="btn btn-default" />
-            </div>
-        </div>
-    </div>
-}
+    <script>
+        const loadFile = (event) => {
+            const image = document.getElementById('output');
+            image.src = URL.createObjectURL(event.target.files[0]);
+        };
+    </script>
 
-<div>
-    @Html.ActionLink("Back to List", "Index")
-</div>
-
-<script>
-    var loadFile = function (event) {
-        var image = document.getElementById('output');
-        image.src = URL.createObjectURL(event.target.files[0]);
-    };
-</script>
-
-@section Scripts {
-    @Scripts.Render("~/bundles/jqueryval")
-}
+    @section Scripts {
+        @Scripts.Render("~/bundles/jqueryval")
+    }
+</body>
+</html>

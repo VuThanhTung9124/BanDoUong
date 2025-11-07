@@ -1,0 +1,53 @@
+﻿@model Admin.Models.Order
+
+@{
+    ViewBag.Title = "Xóa đơn hàng";
+}
+
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100 min-h-screen flex">
+
+    <!-- Main Content -->
+    <main class="flex-1 ml-64 p-6 overflow-auto">
+        <div class="max-w-3xl mx-auto bg-white p-6 rounded-lg shadow">
+            <h2 class="text-2xl font-bold mb-4 text-gray-800">Xóa đơn hàng</h2>
+            <p class="mb-6 text-gray-700">Bạn có chắc chắn muốn xóa đơn hàng này không?</p>
+
+            <div class="bg-gray-50 p-4 rounded-lg mb-6">
+                <dl class="grid grid-cols-2 gap-4">
+                    <dt class="font-semibold text-gray-700">Họ và tên:</dt>
+                    <dd class="text-gray-900">@Html.DisplayFor(model => model.FullName)</dd>
+
+                    <dt class="font-semibold text-gray-700">Số điện thoại:</dt>
+                    <dd class="text-gray-900">@Html.DisplayFor(model => model.Phone)</dd>
+
+                    <dt class="font-semibold text-gray-700">Địa chỉ:</dt>
+                    <dd class="text-gray-900">@Html.DisplayFor(model => model.Address)</dd>
+
+                    <dt class="font-semibold text-gray-700">Tổng tiền:</dt>
+                    <dd class="text-gray-900">@Html.DisplayFor(model => model.TotalAmount)</dd>
+
+                    <dt class="font-semibold text-gray-700">Mô tả:</dt>
+                    <dd class="text-gray-900">@Html.DisplayFor(model => model.Description)</dd>
+                </dl>
+            </div>
+
+            @using (Html.BeginForm())
+            {
+                @Html.AntiForgeryToken()
+                <div class="flex justify-end space-x-3">
+                    <a href="@Url.Action("Index", "Orders")" class="bg-gray-500 text-white px-4 py-2 rounded hover:bg-gray-600">Hủy</a>
+                    <input type="submit" value="Xóa" class="bg-red-600 text-white px-4 py-2 rounded hover:bg-red-700 cursor-pointer" />
+                </div>
+            }
+        </div>
+    </main>
+</body>
+</html>

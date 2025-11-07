@@ -1,74 +1,63 @@
 ﻿@model Admin.Models.Product
 
 @{
-    ViewBag.Title = "Details";
+    ViewBag.Title = "Chi tiết sản phẩm";
 }
 
-<h2>Details</h2>
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title - Dashboard Quản trị</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100 flex min-h-screen">
 
-<div>
-    <h4>Product</h4>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.name)
-        </dt>
+    <!-- Main content -->
+    <main class="flex-1 ml-64 p-8">
+        <div class="bg-white rounded-lg shadow p-8 max-w-3xl mx-auto">
+            <h2 class="text-2xl font-bold text-gray-800 mb-6 text-center">Chi tiết sản phẩm</h2>
 
-        <dd>
-            @Html.DisplayFor(model => model.name)
-        </dd>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <!-- Ảnh sản phẩm -->
+                <div class="flex justify-center items-center">
+                    @{
+                        string pathImage = "~/Image_Water/" + Model.thumbnail;
+                    }
+                    <img src="@Url.Content(pathImage)" alt="@Model.name"
+                         class="rounded-lg border shadow w-64 h-64 object-cover" />
+                </div>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.description)
-        </dt>
+                <!-- Thông tin chi tiết -->
+                <div class="space-y-3">
+                    <p><span class="font-semibold text-gray-700">Tên sản phẩm:</span> <span class="text-gray-900">@Model.name</span></p>
+                    <p><span class="font-semibold text-gray-700">Mô tả:</span> <span class="text-gray-600">@Model.description</span></p>
+                    <p><span class="font-semibold text-gray-700">Giá:</span> <span class="text-green-600 font-semibold">@Model.price.ToString("N0") đ</span></p>
+                    <p><span class="font-semibold text-gray-700">Giá cũ:</span> <span class="line-through text-gray-400">@Model.old_price đ</span></p>
+                    <p><span class="font-semibold text-gray-700">Danh mục:</span> <span class="text-gray-800">@Model.category</span></p>
+                    <p>
+                        <span class="font-semibold text-gray-700">Trạng thái:</span>
+                        @if (Model.status)
+                        {
+                            <span class="px-2 py-1 text-xs font-semibold text-green-700 bg-green-100 rounded">Còn hàng</span>
+                        }
+                        else
+                        {
+                            <span class="px-2 py-1 text-xs font-semibold text-red-700 bg-red-100 rounded">Hết hàng</span>
+                        }
+                    </p>
+                </div>
+            </div>
 
-        <dd>
-            @Html.DisplayFor(model => model.description)
-        </dd>
+            <div class="border-t mt-6 pt-6 flex justify-center space-x-4">
+                @Html.ActionLink("Sửa", "Edit", new { id = Model.product_id },
+                    new { @class = "bg-yellow-500 hover:bg-yellow-600 text-white px-4 py-2 rounded transition" })
+                @Html.ActionLink("Quay lại danh sách", "Index", null,
+                    new { @class = "bg-gray-500 hover:bg-gray-600 text-white px-4 py-2 rounded transition" })
+            </div>
+        </div>
+    </main>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.price)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.price)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.old_price)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.old_price)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.thumbnail)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.thumbnail)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.category)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.category)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.status)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.status)
-        </dd>
-
-    </dl>
-</div>
-<p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.product_id }) |
-    @Html.ActionLink("Back to List", "Index")
-</p>
+</body>
+</html>
