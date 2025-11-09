@@ -61,7 +61,7 @@
                                 @Html.Raw(item.Description?.Replace("\n", "<br>"))
                             </td>
                             <td class="px-4 py-3 text-center space-x-2">
-                                @Html.ActionLink("Xem", "Details", new { id = item.OrderId }, new { @class = "text-blue-600 hover:underline" })
+                                
                                 @Html.ActionLink("Sửa", "Edit", new { id = item.OrderId }, new { @class = "text-yellow-600 hover:underline" })
                                 @Html.ActionLink("Xóa", "Delete", new { id = item.OrderId }, new { @class = "text-red-600 hover:underline" })
                             </td>

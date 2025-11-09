@@ -1,0 +1,61 @@
+﻿@model IEnumerable<Admin.Models.Account>
+
+@{
+    ViewBag.Title = "Tài khoản";
+}
+
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>@ViewBag.Title - Dashboard Quản trị</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100 flex min-h-screen">
+
+    <!-- Main Content -->
+    <main class="flex-1 ml-64 p-6 overflow-auto">
+        <div class="flex justify-between items-center mb-6">
+            <h2 class="text-2xl font-bold text-gray-800">Danh sách tài khoản</h2>
+           
+        </div>
+
+        <div class="bg-white rounded-lg shadow overflow-x-auto">
+            <table class="min-w-full text-left text-sm border-collapse">
+                <thead class="bg-gray-100 text-gray-700 uppercase text-xs">
+                    <tr>
+                        <th class="px-4 py-3">Họ và Tên</th>
+                        <th class="px-4 py-3">Số điện thoại</th>
+                        <th class="px-4 py-3">Mật khẩu</th>
+                        <th class="px-4 py-3 text-center">Hành động</th>
+                    </tr>
+                </thead>
+
+                <tbody class="divide-y">
+                    @foreach (var item in Model)
+                    {
+                        <tr class="hover:bg-gray-50">
+                            <td class="px-4 py-3 font-medium text-gray-900">@item.HoVaTen</td>
+                            <td class="px-4 py-3 text-gray-700">@item.SoDienThoai</td>
+                            <td class="px-4 py-3 text-gray-700">@item.MatKhau</td>
+                            <td class="px-4 py-3 text-center space-x-2">
+                                @using (Html.BeginForm("Delete", "Accounts", FormMethod.Post, new { @style = "display:inline;" }))
+                                {
+                                    @Html.AntiForgeryToken()
+                                    @Html.Hidden("id", item.Email)
+                                    <button type="submit" class="text-red-600 hover:underline bg-transparent border-none cursor-pointer p-0">
+                                        Xóa
+                                    </button>
+                                }
+                            </td>
+                        </tr>
+                    }
+
+                </tbody>
+            </table>
+        </div>
+    </main>
+
+</body>
+</html>
