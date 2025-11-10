@@ -40,12 +40,12 @@
 
                         <div class="py-2 flex justify-between">
                             <dt class="font-medium text-gray-700">Giá hiện tại:</dt>
-                            <dd class="text-green-600 font-semibold">@Model.price.ToString("N0") đ</dd>
+                            <dd class="text-green-600 font-semibold">@Model.price.ToString("N0")</dd>
                         </div>
 
                         <div class="py-2 flex justify-between">
                             <dt class="font-medium text-gray-700">Giá cũ:</dt>
-                            <dd class="text-gray-500 line-through">@Model.old_price?.ToString("N0") đ</dd>
+                            <dd class="text-gray-500 line-through">@(Model.old_price?.ToString("N0") ?? "")</dd>
                         </div>
 
                         <div class="py-2 flex justify-between">

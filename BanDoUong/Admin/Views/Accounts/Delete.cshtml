@@ -40,7 +40,8 @@
     @using (Html.BeginForm())
     {
         @Html.AntiForgeryToken()
-        @Html.HiddenFor(model => model.Email) <!-- Ở đây Email là khóa chính id của Account -->
+        @Html.Hidden("id", Model.Email)
+
 
         <div class="form-actions no-color">
             <input type="submit" value="Delete" class="btn btn-default" /> |

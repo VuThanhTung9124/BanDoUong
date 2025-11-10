@@ -25,33 +25,38 @@
             <table class="min-w-full text-left text-sm border-collapse">
                 <thead class="bg-gray-100 text-gray-700 uppercase text-xs">
                     <tr>
+                        <th class="px-4 py-3">STT</th>
                         <th class="px-4 py-3">Họ và Tên</th>
                         <th class="px-4 py-3">Số điện thoại</th>
-                        <th class="px-4 py-3">Mật khẩu</th>
+                        <th class="px-4 py-3">Email</th>
                         <th class="px-4 py-3 text-center">Hành động</th>
                     </tr>
                 </thead>
 
                 <tbody class="divide-y">
-                    @foreach (var item in Model)
-                    {
-                        <tr class="hover:bg-gray-50">
-                            <td class="px-4 py-3 font-medium text-gray-900">@item.HoVaTen</td>
-                            <td class="px-4 py-3 text-gray-700">@item.SoDienThoai</td>
-                            <td class="px-4 py-3 text-gray-700">@item.MatKhau</td>
-                            <td class="px-4 py-3 text-center space-x-2">
-                                @using (Html.BeginForm("Delete", "Accounts", FormMethod.Post, new { @style = "display:inline;" }))
-                                {
-                                    @Html.AntiForgeryToken()
-                                    @Html.Hidden("id", item.Email)
-                                    <button type="submit" class="text-red-600 hover:underline bg-transparent border-none cursor-pointer p-0">
-                                        Xóa
-                                    </button>
-                                }
-                            </td>
-                        </tr>
-                    }
+                    
+                    @{
+                        int index = 0;
+                        foreach (var item in Model)
+                        {
+                            index += 1;
+                                        <tr class="hover:bg-gray-50">
+                                            <td class="px-4 py-3 text-gray-700">@index</td>
+                                            <td class="px-4 py-3 font-medium text-gray-900">@item.HoVaTen</td>
+                                            <td class="px-4 py-3 text-gray-700">@item.SoDienThoai</td>
+                                            <td class="px-4 py-3 text-gray-700">@item.Email</td>
+                                            <td class="px-4 py-3 text-center space-x-2">
+                                                @using (Html.BeginForm("Delete", "Accounts", FormMethod.Post))
+                                                {
+                                                    @Html.AntiForgeryToken()
+                                                    @Html.Hidden("id", item.Email)
+                                                    <button type="submit" class="text-red-600 hover:underline bg-transparent border-none cursor-pointer p-0"> Xóa </button>
+                                                }
 
+                                            </td>
+                                        </tr>
+                            }
+                        }
                 </tbody>
             </table>
         </div>

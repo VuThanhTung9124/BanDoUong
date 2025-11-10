@@ -128,7 +128,6 @@ namespace BanDoUong.Controllers
 
 
 
-
         public ActionResult XemGioHang()
         {
             List<CartItem> cart = Session["Cart"] as List<CartItem>;
@@ -175,7 +174,7 @@ namespace BanDoUong.Controllers
 
             
             decimal tongTien = selectedItems.Sum(x => x.Price * x.Quantity);
-            Session["tong_tien"] = tongTien;
+            Session["tong_tien"] = tongTien.ToString("N0");
             Session["thong_tin"] = thongtin;
             Session["dat_hang"] = cartItems;
 
@@ -197,11 +196,25 @@ namespace BanDoUong.Controllers
   var query = (from a in db.Products
                         where a.product_id == id
                         select a).FirstOrDefault();
+                Session["MuaMotSanPham"] = query.product_id;
+                string thongtin = "";
+                thongtin += $"Tên sản phẩm: " + query.name + "<br>" + "Số lượng: " + 1 + "<br>" + "Tổng tiền: " + query.price.ToString("N0") + " <br> " + "--------------------<br>";
+                
+                Session["tong_tien"] = query.price.ToString("N0");
+                Session["thong_tin"] = thongtin;
+                Session["dat_hang"] = query;
 
-            return View(query);
+                return View(query);
             }
+
+           
           
 
+        }
+
+        public ActionResult MuaNgayMotSanPham()
+        {
+            return View();
         }
 
 

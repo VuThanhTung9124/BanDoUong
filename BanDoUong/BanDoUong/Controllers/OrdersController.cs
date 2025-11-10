@@ -49,6 +49,30 @@ namespace BanDoUong.Controllers
             return View(latestOrder);
         }
 
+
+        [HttpPost]
+        public ActionResult MuaMotSanPham(string FullName, string Phone, string Address)
+        {
+
+            Order order = new Order();
+            order.FullName = FullName;
+            order.Phone = Phone;
+            order.Address = Address;
+            order.TotalAmount = Convert.ToDecimal(Session["tong_tien"]);
+            order.Description = Session["thong_tin"].ToString();
+
+
+            db.Orders.Add(order);
+            db.SaveChanges();
+
+            // Chỉ lấy hóa đơn mới nhất
+            var latestOrder = db.Orders
+                                .OrderByDescending(o => o.OrderId)
+                                .FirstOrDefault();
+
+            return View(latestOrder);
+        }
+
         // GET: Orders/Details/5
         public ActionResult Details(int? id)
         {

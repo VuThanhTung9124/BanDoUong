@@ -40,6 +40,7 @@
             <table class="min-w-full text-left text-sm border-collapse">
                 <thead class="bg-gray-100 text-gray-700 uppercase text-xs">
                     <tr>
+                        <th class="px-4 py-3">STT</th>
                         <th class="px-4 py-3">Tên khách hàng</th>
                         <th class="px-4 py-3">Số điện thoại</th>
                         <th class="px-4 py-3">Địa chỉ</th>
@@ -50,23 +51,28 @@
                 </thead>
 
                 <tbody class="divide-y">
-                    @foreach (var item in Model)
-                    {
-                        <tr class="hover:bg-gray-50">
-                            <td class="px-4 py-3 font-medium text-gray-900">@item.FullName</td>
-                            <td class="px-4 py-3 text-gray-700">@item.Phone</td>
-                            <td class="px-4 py-3 text-gray-700">@item.Address</td>
-                            <td class="px-4 py-3 text-green-600 font-semibold">@item.TotalAmount.ToString("N0") đ</td>
-                            <td class="px-4 py-3 text-gray-600 max-w-xs">
-                                @Html.Raw(item.Description?.Replace("\n", "<br>"))
-                            </td>
-                            <td class="px-4 py-3 text-center space-x-2">
-                                
-                                @Html.ActionLink("Sửa", "Edit", new { id = item.OrderId }, new { @class = "text-yellow-600 hover:underline" })
-                                @Html.ActionLink("Xóa", "Delete", new { id = item.OrderId }, new { @class = "text-red-600 hover:underline" })
-                            </td>
-                        </tr>
-                    }
+                    @{ 
+                                    int index = 0;
+                                    foreach (var item in Model)
+                                    {
+                            index += 1;
+                                        <tr class="hover:bg-gray-50">
+                                            <td class="px-4 py-3 text-gray-700">@index</td>
+                                            <td class="px-4 py-3 font-medium text-gray-900">@item.FullName</td>
+                                            <td class="px-4 py-3 text-gray-700">@item.Phone</td>
+                                            <td class="px-4 py-3 text-gray-700">@item.Address</td>
+                                            <td class="px-4 py-3 text-green-600 font-semibold">@item.TotalAmount.ToString("N0") đ</td>
+                                            <td class="px-4 py-3 text-gray-600 max-w-xs">
+                                                @Html.Raw(item.Description?.Replace("\n", "<br>"))
+                                            </td>
+                                            <td class="px-4 py-3 text-center space-x-2">
+
+                                                @Html.ActionLink("Sửa", "Edit", new { id = item.OrderId }, new { @class = "text-yellow-600 hover:underline" })
+                                                @Html.ActionLink("Xóa", "Delete", new { id = item.OrderId }, new { @class = "text-red-600 hover:underline" })
+                                            </td>
+                                        </tr>
+                            }
+                        }
                 </tbody>
             </table>
         </div>

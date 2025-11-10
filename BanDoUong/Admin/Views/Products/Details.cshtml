@@ -33,8 +33,8 @@
                 <div class="space-y-3">
                     <p><span class="font-semibold text-gray-700">Tên sản phẩm:</span> <span class="text-gray-900">@Model.name</span></p>
                     <p><span class="font-semibold text-gray-700">Mô tả:</span> <span class="text-gray-600">@Model.description</span></p>
-                    <p><span class="font-semibold text-gray-700">Giá:</span> <span class="text-green-600 font-semibold">@Model.price.ToString("N0") đ</span></p>
-                    <p><span class="font-semibold text-gray-700">Giá cũ:</span> <span class="line-through text-gray-400">@Model.old_price đ</span></p>
+                    <p><span class="font-semibold text-gray-700">Giá:</span> <span class="text-green-600 font-semibold">@Model.price.ToString("N0")</span></p>
+                    <p><span class="font-semibold text-gray-700">Giá cũ:</span> <span class="line-through text-gray-400">@(Model.old_price?.ToString("N0") ?? "")</span></p>
                     <p><span class="font-semibold text-gray-700">Danh mục:</span> <span class="text-gray-800">@Model.category</span></p>
                     <p>
                         <span class="font-semibold text-gray-700">Trạng thái:</span>
